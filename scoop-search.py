@@ -42,7 +42,7 @@ def search_json_files(directory, keywords):
                                 [
                                     "\n".join(
                                         re.findall(
-                                            r"\S{1,5}" + keyword + r"\S{1,5}",
+                                            r"\S{,5}" + keyword + r"\S{,5}",
                                             str(data.get("description", "")),
                                             re.I,
                                         )
@@ -54,7 +54,7 @@ def search_json_files(directory, keywords):
                                 [
                                     "\n".join(
                                         re.findall(
-                                            r"\S{1,5}" + keyword + r"\S{1,5}",
+                                            r"\S{,5}" + keyword + r"\S{,5}",
                                             str(data.get("notes", "")),
                                             re.I,
                                         )
