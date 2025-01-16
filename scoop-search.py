@@ -38,24 +38,12 @@ def search_json_files(directory, keywords):
                                 for keyword in keywords
                             ]
                         ):
-                            item["Description"] = "\n".join(
+                            item["Description/Notes"] = "\n".join(
                                 [
                                     "\n".join(
                                         re.findall(
                                             r"\S{,10}" + keyword + r"\S{,10}",
-                                            str(data.get("description", "")),
-                                            re.I,
-                                        )
-                                    )
-                                    for keyword in keywords
-                                ]
-                            )
-                            item["Notes"] = "\n".join(
-                                [
-                                    "\n".join(
-                                        re.findall(
-                                            r"\S{,10}" + keyword + r"\S{,10}",
-                                            str(data.get("notes", "")),
+                                            str(data.get("description", "")) + str(data.get("notes", "")),
                                             re.I,
                                         )
                                     )
@@ -81,7 +69,7 @@ def display_results(results):
         return
 
     table = PrettyTable()
-    table.field_names = ["Name", "Version", "Install", "Homepage", "Description", "Notes", "Bin"]
+    table.field_names = ["Name", "Version", "Install", "Homepage", "Description/Notes", "Bin"]
     table.hrules = True
     for result in results:
         table.add_row(
@@ -90,8 +78,7 @@ def display_results(results):
                 result.get("Version", ""),
                 result.get("Install", ""),
                 result.get("Homepage", ""),
-                result.get("Description", ""),
-                result.get("Notes", ""),
+                result.get("Description/Notes", ""),
                 result.get("Bin", ""),
             ]
         )
