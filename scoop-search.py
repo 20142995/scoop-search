@@ -19,10 +19,11 @@ def search_json_files(directory, keywords):
                         item["Name"] = name
                         item["Version"] = data['version']
                         item["Homepage"] = data['homepage']
-                        if any([re.findall(keyword ,str(data.get("description","")) + str(data.get("notes",""))  + str(data.get("bin","")) + name + str(data.get('version','')) + str(data.get('homepage','')) + str(data.get('bin','')),re.I) for keyword in keywords]):
+                        # item["Bin"] = str(data.get('bin',''))
+                        if all([re.search(keyword ,str(data.get("description","")) + str(data.get("notes",""))  + str(data.get("bin","")) + name + str(data.get('version','')) + str(data.get('homepage','')) + str(data.get('bin','')),re.I) for keyword in keywords]):
                             item["Description"] = ';'.join([",".join(re.findall(r'\S{1,5}'+ keyword +r'\S{1,5}',str(data.get("description","")),re.I)) for keyword in keywords])
                             item["Notes"] = ';'.join([",".join(re.findall(r'\S{1,5}'+ keyword +r'\S{1,5}',str(data.get("notes","")),re.I)) for keyword in keywords])
-                            item["Bin"] = ','.join(re.findall(r'[\w\\\.]+',str(data.get("bin","")),re.I)[:3]) # 只展示前三
+                            item["Bin"] = ','.join(re.findall(r'[\w\\\.]+',str(data.get("bin","")),re.I)[:3])
                             results.append(item)
                     except json.JSONDecodeError:
                         print(f"Warning: {file_path} is not a valid JSON file.")
@@ -55,6 +56,9 @@ def main():
     if not os.path.exists(directory):
         directory = os.path.join('./','../../../','buckets')
     keywords = sys.argv[1:]
+    if len(keywords) == 0:
+        print("No keywords.")
+        return
     results = search_json_files(directory,keywords)
     display_results(results)
 
