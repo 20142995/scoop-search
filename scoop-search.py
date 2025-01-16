@@ -19,7 +19,7 @@ def search_json_files(directory, keywords):
                         item = {}
                         item["Name"] = f'{_dir}/{name}'
                         item["Version"] = data["version"]
-                        item["Install"] = 'Y' if os.path.exists(os.path.join(directory,'../','apps',name)) else '-'
+                        item["Install"] = '✔' if os.path.exists(os.path.join(directory,'../','apps',name)) else ''
                         item["Homepage"] = data["homepage"]
                         # item["Bin"] = str(data.get('bin',''))
                         if all(
