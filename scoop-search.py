@@ -17,9 +17,9 @@ def search_json_files(directory, keywords):
                     try:
                         data = json.load(file)
                         item = {}
-                        item["Bucket"] = _dir
-                        item["Name"] = name
+                        item["Name"] = f'{_dir}/{name}'
                         item["Version"] = data["version"]
+                        item["Install"] = 'Y' if os.path.join(directory,'../','apps',name) else '-'
                         item["Homepage"] = data["homepage"]
                         # item["Bin"] = str(data.get('bin',''))
                         if all(
@@ -81,14 +81,14 @@ def display_results(results):
         return
 
     table = PrettyTable()
-    table.field_names = ["Bucket", "Name", "Version", "Homepage", "Description", "Notes", "Bin"]
+    table.field_names = ["Name", "Version", "Install", "Homepage", "Description", "Notes", "Bin"]
     table.hrules = True
     for result in results:
         table.add_row(
             [
-                result.get("Bucket", ""),
                 result.get("Name", ""),
                 result.get("Version", ""),
+                result.get("Install", ""),
                 result.get("Homepage", ""),
                 result.get("Description", ""),
                 result.get("Notes", ""),
