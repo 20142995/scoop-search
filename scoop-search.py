@@ -40,7 +40,7 @@ def search_json_files(directory, keywords):
                         ):
                             item["Description"] = "\n".join(
                                 [
-                                    ";".join(
+                                    "\n".join(
                                         re.findall(
                                             r"\S{1,5}" + keyword + r"\S{1,5}",
                                             str(data.get("description", "")),
@@ -52,7 +52,7 @@ def search_json_files(directory, keywords):
                             )
                             item["Notes"] = "\n".join(
                                 [
-                                    ";".join(
+                                    "\n".join(
                                         re.findall(
                                             r"\S{1,5}" + keyword + r"\S{1,5}",
                                             str(data.get("notes", "")),
