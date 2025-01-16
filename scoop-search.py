@@ -23,7 +23,7 @@ def search_json_files(directory, keywords):
                         if all([re.search(keyword ,str(data.get("description","")) + str(data.get("notes",""))  + str(data.get("bin","")) + name + str(data.get('version','')) + str(data.get('homepage','')) + str(data.get('bin','')),re.I) for keyword in keywords]):
                             item["Description"] = '\n'.join([";".join(re.findall(r'\S{1,5}'+ keyword +r'\S{1,5}',str(data.get("description","")),re.I)) for keyword in keywords])
                             item["Notes"] = '\n'.join([";".join(re.findall(r'\S{1,5}'+ keyword +r'\S{1,5}',str(data.get("notes","")),re.I)) for keyword in keywords])
-                            item["Bin"] = '\n'.join(re.findall(r'[\w\\\.]+',str(data.get("bin","")),re.I)[:3])
+                            item["Bin"] = '\n'.join(re.findall(r'[\w\\\.-]+',str(data.get("bin","")),re.I)[:3])
                             results.append(item)
                     except json.JSONDecodeError:
                         print(f"Warning: {file_path} is not a valid JSON file.")
