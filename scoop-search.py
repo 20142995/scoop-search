@@ -17,6 +17,7 @@ def search_json_files(directory, keywords):
                     try:
                         data = json.load(file)
                         item = {}
+                        item["Bucket"] = _dir
                         item["Name"] = name
                         item["Version"] = data["version"]
                         item["Homepage"] = data["homepage"]
@@ -80,11 +81,12 @@ def display_results(results):
         return
 
     table = PrettyTable()
-    table.field_names = ["Name", "Version", "Homepage", "Description", "Notes", "Bin"]
+    table.field_names = ["Bucket", "Name", "Version", "Homepage", "Description", "Notes", "Bin"]
     table.hrules = True
     for result in results:
         table.add_row(
             [
+                result.get("Bucket", ""),
                 result.get("Name", ""),
                 result.get("Version", ""),
                 result.get("Homepage", ""),
